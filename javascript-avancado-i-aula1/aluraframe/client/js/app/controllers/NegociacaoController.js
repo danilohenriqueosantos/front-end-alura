@@ -12,23 +12,16 @@ class NegociacaoController {
     adiciona() {
         event.preventDefault();
 
-        // console.log(typeof(this._inputData.value));
-
-        let data = new Date(this._inputData.value.replace(/-/g, ','));
+        let data = new Date(...this._inputData.value
+            .split('-')
+            .map(function (item, indice) {
+                return item - indice % 2;
+            })
+        );
 
         console.log(data);
         
-        
-        // let negociacao = new Negociacao(
-        //     this._inputData.value,
-        //     this._inputQuantidade.value,
-        //     this._inputValor.value
-        // );
 
-        // console.log(negociacao);
-        
-
-        //Adicionar uma negociação a uma lista
     }
 
 }
