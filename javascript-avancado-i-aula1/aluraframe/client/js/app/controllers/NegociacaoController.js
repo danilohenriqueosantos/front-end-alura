@@ -22,8 +22,20 @@ class NegociacaoController {
     }
 
     importaNegociacoes() {
+
         let service = new NegociacaoService();
 
+        Promise.all([service.obterNegociacoesDaSemana(),
+            service.obterNegociacoesDaSemanaAnterior(),
+            service.obterNegociacoesDaSemanaRetrasada()]
+        ).then(negociacoes => {
+            negociacoes
+            .reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])
+            .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            this._mensagem.texto = 'Negociações importadas com sucesso!';
+        })
+        .catch(error => this._mensagem.texto = error);
+        /*
         service.obterNegociacoesDaSemana()
             .then(negociacoes => {
                 negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
@@ -44,37 +56,7 @@ class NegociacaoController {
                 this._mensagem.texto = 'Negociação da semana obtida com sucesso!';
             })
             .catch(erro => this._mensagem.texto = erro);
-
-        /*
-        service.obterNegociacoesDaSemana((err, negociacoes) => {
-            if (err) {
-                this._mensagem.texto = err;
-                return;
-            }
-
-            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-
-            service.obterNegociacoesDaSemanaAnterior((err, negociacoes) => {
-                if (err) {
-                    this._mensagem.texto = err;
-                    return;
-                }
-
-                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-
-                service.obterNegociacoesDaSemanaRetrasada((err, negociacoes) => {
-                    if (err) {
-                        this._mensagem.texto = err;
-                        return;
-                    }
-
-                    negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-                    this._mensagem.texto = "Negociações importadas com sucesso!";
-
-                });
-            });
-        });
-        */
+            */
 
     }
 
