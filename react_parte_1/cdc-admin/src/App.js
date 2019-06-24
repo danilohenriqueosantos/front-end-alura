@@ -5,6 +5,8 @@ import './css/side-menu.css';
 
 function App() {
   
+  let state = {lista: [{nome: 'Danilo Santos', email: 'danilo@danilo.com.br', senha: '123456'}]}
+
   return (
     <div id="layout">
 
@@ -60,10 +62,16 @@ function App() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Alberto</td>                
-                      <td>alberto.souza@caelum.com.br</td>                
-                    </tr>
+                    {
+                      state.lista.map((autor) => {
+                        return (
+                          <tr>
+                            <td>{autor.nome}</td>
+                            <td>{autor.email}</td>
+                          </tr>
+                        );
+                      })
+                    }
                   </tbody>
                 </table> 
               </div>             
