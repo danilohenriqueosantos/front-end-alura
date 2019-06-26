@@ -28,7 +28,6 @@ class FormularioAutor extends Component {
             }.bind(this),
             error: function (resposta) {
                 console.log("Deu erro");
-
             }
         });
     }
