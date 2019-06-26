@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import InputCustomizado from './componentes/InputCustomizado';
 import BotaoSubmitCustomizado from './componentes/BotaoSubmitCustomizado';
+import PubSub from 'pubsub-js';
+import TratadorErros from './TratadorErros'
 
 class FormularioAutor extends Component {
 
@@ -18,16 +20,23 @@ class FormularioAutor extends Component {
         evento.preventDefault();
 
         $.ajax({
-            url: 'http://cdc-react.herokuapp.com/api/autores',
+            // url: 'http://cdc-react.herokuapp.com/api/autores',
+            url: 'http://localhost:8080/api/autores',
             contentType: 'application/json',
             dataType: 'json',
             type: 'post',
             data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
-            success: function (resposta) {
-                this.props.callbackAtualizaListagem(resposta);
+            success: function (novaListagem) {
+                PubSub.publish('atualiza-lista-autores', novaListagem);
+                this.setState({ nome: '', email: '', senha: '' });
             }.bind(this),
             error: function (resposta) {
-                console.log("Deu erro");
+
+                if (resposta.status === 400) {
+                    new TratadorErros().publicaErros(resposta.responseJSON);
+                }
+            }, beforeSend: function () {
+                PubSub.publish("limpa-erros", {});
             }
         });
     }
@@ -93,26 +102,27 @@ export default class AutorBox extends Component {
     constructor() {
         super();
         this.state = { lista: [] };
-        this.atualizaListagem = this.atualizaListagem.bind(this);
     }
 
     componentWillMount() {
         $.ajax({
-            url: 'http://cdc-react.herokuapp.com/api/autores',
+            // url: 'http://cdc-react.herokuapp.com/api/autores',
+            url: 'http://localhost:8080/api/autores',
             dataType: 'json',
             success: function (resposta) {
                 this.setState({ lista: resposta });
             }.bind(this)
         })
+
+        PubSub.subscribe('atualiza-lista-autores', function (topico, novaLista) {
+            this.setState({ lista: novaLista })
+        }.bind(this));
     }
 
-    atualizaListagem(novaLista) {
-        this.setState({ lista: novaLista })
-    }
     render() {
         return (
             <div>
-                <FormularioAutor callbackAtualizaListagem={this.atualizaListagem} />
+                <FormularioAutor />
                 <TabelaAutores lista={this.state.lista} />
             </div>
         );
