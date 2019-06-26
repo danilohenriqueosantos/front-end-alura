@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@version/react-router-v3": "^1.0.0",
+    "i": "^0.3.6",
     "jquery": "^3.4.1",
     "pubsub-js": "^1.7.0",
     "react": "^16.8.6",

@@ -20,8 +20,8 @@ class FormularioAutor extends Component {
         evento.preventDefault();
 
         $.ajax({
-            // url: 'http://cdc-react.herokuapp.com/api/autores',
-            url: 'http://localhost:8080/api/autores',
+            url: 'http://cdc-react.herokuapp.com/api/autores',
+            // url: 'http://localhost:8080/api/autores',
             contentType: 'application/json',
             dataType: 'json',
             type: 'post',
@@ -106,8 +106,8 @@ export default class AutorBox extends Component {
 
     componentWillMount() {
         $.ajax({
-            // url: 'http://cdc-react.herokuapp.com/api/autores',
-            url: 'http://localhost:8080/api/autores',
+            url: 'http://cdc-react.herokuapp.com/api/autores',
+            // url: 'http://localhost:8080/api/autores',
             dataType: 'json',
             success: function (resposta) {
                 this.setState({ lista: resposta });
