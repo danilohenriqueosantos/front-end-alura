@@ -3,18 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Router, Route } from 'react-router-dom';
-import history from 'history';
-import AutorBox from './Autor';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import AutorAdmin from './Autor';
+import LivroAdmin from './Livro';
+import Home from './Home';
 
 
 ReactDOM.render(
-    <Router history={history}>
-        <Route path="/" component={App} >
-            <Route path="/autor" component={AutorBox} />
-            <Route path="/livro" />
-        </Route>
+    <Router>
+        <App>
+            <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route path="/autor" component={AutorAdmin} />
+                <Route path="/livro" component={LivroAdmin} />
+            </Switch>
+        </App>
     </Router>,
+
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
