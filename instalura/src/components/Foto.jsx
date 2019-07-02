@@ -64,7 +64,7 @@ class FotoHeader extends Component {
         return (
             <header className="foto-header">
               <figure className="foto-usuario">
-                <img src="https://instagram.fcgh10-1.fna.fbcdn.net/t51.2885-19/11199408_569104449895751_1837574990_a.jpg" alt="foto do usuario"/>
+                <img src="https://instagram.fcgh3-1.fna.fbcdn.net/vp/8fd15d6d6e7d5b6014e25d5dc4450b60/5DC46582/t51.2885-19/s150x150/37953285_370883140129782_1880302635983044608_n.jpg?_nc_ht=instagram.fcgh3-1.fna.fbcdn.net" alt="foto do usuario"/>
                 <figcaption className="foto-usuario">
                   <a href="#">
                     alots
@@ -82,7 +82,7 @@ export default class Foto extends Component {
         return (
           <div className="foto">
             <FotoHeader/>
-            <img alt="foto" className="foto-src" src="https://instagram.fcgh10-1.fna.fbcdn.net/t51.2885-15/e35/14482111_1635089460122802_8984023070045896704_n.jpg?ig_cache_key=MTM1MzEzNjM4NzAxMjIwODUyMw%3D%3D.2"/>
+            <img alt="foto" className="foto-src" src="https://cdn.pixabay.com/photo/2019/04/13/19/10/bowl-of-fruit-in-rain-4125348__340.jpg"/>
             <FotoInfo/>
             <FotoAtualizacoes/>
           </div>            

@@ -6,7 +6,7 @@ export default class Timeline extends Component {
         return (
             <div className="fotos container">
                 <Foto />
-                <Foto />
+                {/* <Foto /> */}
             </div>
         );
     }
