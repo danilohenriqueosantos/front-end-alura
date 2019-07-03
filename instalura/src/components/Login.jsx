@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 
 export default class Login extends Component {
 
-    constructor() {
-        super();
-        this.state = { msg: '' }
+    constructor(props) {
+        super(props);
+        this.state = { msg: this.props.location.query.msg }
     }
 
     envia(event) {
@@ -22,12 +23,16 @@ export default class Login extends Component {
                 if (response.ok) {
                     return response.text();
                 } else {
-                    this.setState({ msg: 'Não foi possível fazer o login' });
+                    throw new Error('Não foi possível fazar o login');
                 }
             })
             .then(token => {
-                console.log(token);
+                localStorage.setItem('auth-token', token);
+                browserHistory.push('/timeline');
             })
+            .catch(error => {
+                this.setState({ msg: error.message })
+            });
     }
     render() {
         return (
