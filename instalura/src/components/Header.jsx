@@ -8,8 +8,7 @@ export default class Header extends Component {
         fetch(`http://localhost:8080/api/public/fotos/${this.loginPesquisado.value}`)
             .then(response => response.json())
             .then(fotos => {
-                console.log(fotos);
-
+                Pubsub.publish('timeline', { fotos })
             });
     }
 
